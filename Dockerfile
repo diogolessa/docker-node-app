@@ -14,5 +14,5 @@ COPY . .
 
 EXPOSE 4000
 
-# Executa 
+# Executa
 CMD ["npm", "start"]
