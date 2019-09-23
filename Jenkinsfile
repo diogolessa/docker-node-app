@@ -9,7 +9,7 @@ pipeline {
         stage('Building image') {
             steps {
                 script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    dockerImage = docker.build(registry + ":latest")
                 }
             }
         }
@@ -23,13 +23,10 @@ pipeline {
             }
         }
         stage('Running app') {
-            agent {
-                docker { image registry }
-            }
             steps {
                 sh 'docker container stop nodejs-docker-app'
                 sh 'docker container rm -f nodejs-docker-app'
-                sh 'docker run -p 4000:4000 --name nodejs-docker-app $registry:$BUILD_NUMBER'
+                sh 'docker container run -p 4000:4000 --name nodejs-docker-app $registry:$BUILD_NUMBER'
             }
         }
         // stage('Test') {
