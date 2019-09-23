@@ -22,11 +22,9 @@ pipeline {
                 }
             }
         }
-        stage('Running app') {
+        stage('Deploy') {
             steps {
-                // sh 'docker container stop nodejs-docker-app'
-                // sh 'docker container rm -f nodejs-docker-app'
-                sh 'docker container run -p 4000:4000 --name nodejs-docker-app $registry:latest'
+                sh './run.sh'
             }
         }
         // stage('Test') {
