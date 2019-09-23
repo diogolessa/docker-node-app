@@ -24,9 +24,9 @@ pipeline {
         }
         stage('Running app') {
             steps {
-                sh 'docker container stop nodejs-docker-app'
-                sh 'docker container rm -f nodejs-docker-app'
-                sh 'docker container run -p 4000:4000 --name nodejs-docker-app $registry:$BUILD_NUMBER'
+                // sh 'docker container stop nodejs-docker-app'
+                // sh 'docker container rm -f nodejs-docker-app'
+                sh 'docker container run -p 4000:4000 --name nodejs-docker-app $registry:latest'
             }
         }
         // stage('Test') {
