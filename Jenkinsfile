@@ -22,6 +22,16 @@ pipeline {
                 }
             }
         }
+        stage('Running app') {
+            agent {
+                docker { image registry }
+            }
+            steps {
+                sh 'docker container stop nodejs-docker-app'
+                sh 'docker container rm -f nodejs-docker-app'
+                sh 'docker run -p 4000:4000 --name nodejs-docker-app $registry:$BUILD_NUMBER'
+            }
+        }
         // stage('Test') {
         //     steps {
         //         sh 'node --version'
