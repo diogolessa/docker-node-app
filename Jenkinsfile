@@ -1,10 +1,31 @@
 pipeline {
-    agent { dockerfile true }
+    environment {
+        registry = "dlessa/nodejs-docker-app"
+        credential = "dockerhub"
+        dockerImage = ""
+    }
+    agent any
     stages {
-        stage('Test') {
+        stage('Building image') {
             steps {
-                sh 'node --version'
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
             }
         }
+        stage('Deploy Image') {
+            steps {
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        // stage('Test') {
+        //     steps {
+        //         sh 'node --version'
+        //     }
+        // }
     }
 }
