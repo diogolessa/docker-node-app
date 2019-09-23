@@ -1,7 +1,7 @@
 pipeline {
     environment {
         registry = "dlessa/nodejs-docker-app"
-        credential = "dockerhub"
+        registryCredential = "dockerhub"
         dockerImage = ""
     }
     agent any
