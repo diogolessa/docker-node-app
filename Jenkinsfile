@@ -16,7 +16,7 @@ pipeline {
         stage('Deploy Image') {
             steps {
                 script {
-                    docker.withRegistry( '', registryCredential ) {
+                    docker.withRegistry('', registryCredential) {
                         dockerImage.push()
                     }
                 }
@@ -24,6 +24,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                sh 'chmod +x run.sh'
                 sh './run.sh'
             }
         }
